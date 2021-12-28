@@ -1,46 +1,63 @@
-row, col = 5, 7
-
-graph = ['#######', 
-        '#F..#...#', 
-        '#.#.....#', 
-        '#......S#',
-        '#######']   
-        
-def dfs(r, c, graph, visited, stack, path):
+def dfs (graph, visited, r, c, path, row, col): 
     visited.append([r, c])
-    stack.append([r, c])
-    while(graph[r][c]!='F'): 
-        #print(r, c)
-        #print(path)
-        if [r+1, c] not in visited and graph[r+1][c]!='#':
-            path[0]+='D'
-            stack.append([r+1, c])
-        if [r-1, c] not in visited and graph[r-1][c]!='#':
-            path[0]+='U'
-            stack.append([r-1, c])
-        if [r, c+1] not in visited and graph[r][c+1]!='#':
-            path[0]+='R'
-            stack.append([r, c+1])
-        if [r, c-1] not in visited and graph[r][c-1]!='#':
-            path[0]+='L'
-            stack.append([r, c-1])
-        r, c = stack.pop(-1)
-        visited.append([r, c])
-    
+    if graph[r][c]=='F': 
+        return path
+    if [r+1, c] not in visited and graph[r+1][c]!='#' and in_bound(graph, row, col, r+1, c):
+        path+='D'
+        #print("hi")
+        path = dfs(graph, visited, r+1, c, path, row, col)
+    if [r-1, c] not in visited and graph[r-1][c]!='#' and in_bound(graph, row, col, r-1, c):
+        path+='U'
+        #print("hi")
+        path = dfs(graph, visited, r-1, c, path, row, col)
+    if [r, c+1] not in visited and graph[r][c+1]!='#' and in_bound(graph, row, col, r, c+1):
+        path+='R'
+        #print("hi")
+        path = dfs(graph, visited, r, c+1, path, row, col)
+    if [r, c-1] not in visited and graph[r][c-1]!='#' and in_bound(graph, row, col, r, c-1):
+        path+='L'
+        #print("hi")
+        path = dfs(graph, visited, r, c-1, path, row, col)
     return path
-path = ['']
-visited = []
-stack = []
-
-#find the coordinates for the starting point
+    
+def in_bound(graph, num_rows, num_cols, r, c): 
+    if r >= num_rows or r < 0: 
+        return False
+    if c >= num_cols or c < 0: 
+        return False 
+        
+    return True
+    
 def find_start(graph, row, col): 
     for i in range(row): 
         for j in range(col): 
             if graph[i][j] == 'S': 
                 return [i, j]
+                
+graph = ['#######', 
+        '#F....#', 
+        '#.#.###', 
+        '#....S#',
+        '#######']
 
-start_coord = find_start(graph, row, col)
+graph = ['#######', 
+        '#F#...#', 
+        '#.#.#.#', 
+        '#...#S#',
+        '#######']
 
-#start the dfs from the starting point
-dfs(start_coord[0], start_coord[1], graph, visited, stack, path)
-print(path[0])
+path = ""
+
+row, col = 5, 6
+start_coords = find_start(graph, row, col)
+print(start_coords)
+visited = []
+print(dfs(graph, visited, start_coords[0], start_coords[1], path, row, col))
+
+print()
+
+
+
+
+
+
