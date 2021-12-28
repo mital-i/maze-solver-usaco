@@ -36,22 +36,12 @@ graph = ['#######',
         '#....S#',
         '#######']
 
-graph = ['#######', 
-        '#F#...#', 
-        '#.#.#.#', 
-        '#...#S#',
-        '#######']
-
 path = ""
 
 row, col = 5, 6
 start_coords = find_start(graph, row, col)
-print(start_coords)
 visited = []
 print(dfs(graph, visited, start_coords[0], start_coords[1], path, row, col))
-
-print()
-
 
 
 
