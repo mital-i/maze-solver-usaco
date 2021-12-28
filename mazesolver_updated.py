@@ -4,19 +4,15 @@ def dfs (graph, visited, r, c, path, row, col):
         return path
     if [r+1, c] not in visited and graph[r+1][c]!='#' and in_bound(graph, row, col, r+1, c):
         path+='D'
-        #print("hi")
         path = dfs(graph, visited, r+1, c, path, row, col)
     if [r-1, c] not in visited and graph[r-1][c]!='#' and in_bound(graph, row, col, r-1, c):
         path+='U'
-        #print("hi")
         path = dfs(graph, visited, r-1, c, path, row, col)
     if [r, c+1] not in visited and graph[r][c+1]!='#' and in_bound(graph, row, col, r, c+1):
         path+='R'
-        #print("hi")
         path = dfs(graph, visited, r, c+1, path, row, col)
     if [r, c-1] not in visited and graph[r][c-1]!='#' and in_bound(graph, row, col, r, c-1):
         path+='L'
-        #print("hi")
         path = dfs(graph, visited, r, c-1, path, row, col)
     return path
     
